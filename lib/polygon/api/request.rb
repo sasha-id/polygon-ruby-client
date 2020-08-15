@@ -30,7 +30,6 @@ module Polygon
             request.body = options.to_json unless options.empty?
           end
           request.options.merge!(options.delete(:request)) if options.key?(:request)
-          puts request
         end
         response.body
       end
