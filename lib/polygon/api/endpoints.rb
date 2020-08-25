@@ -10,7 +10,8 @@ module Polygon
       def all_trades(symbol:, date:, options: {}, &block)
         last_trade = nil
         loop do
-          trades = trades(symbol: symbol, date: date, options: options.merge(timestamp: last_trade&.dig(:t).to_i))[:results]
+          offset_options = last_trade ? options.merge(timestamp: last_trade&.dig(:t)) : options
+          trades = trades(symbol: symbol, date: date, options: offset_options)[:results]
           trades.each { |trade| block.call(trade) }
           last_trade = trades.last
           break if trades.size < (options[:limit] || 50_000)
