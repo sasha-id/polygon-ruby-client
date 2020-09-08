@@ -25,6 +25,7 @@ module Polygon
           options[:request] = request_options if request_options.any?
 
           ::Faraday::Connection.new(endpoint, options) do |connection|
+            connection.use Faraday::Response::RaiseError
             connection.use ::FaradayMiddleware::ParseOj, content_type: /\bjson$/
             connection.response :logger, logger if logger
             connection.adapter ::Faraday.default_adapter
