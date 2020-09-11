@@ -21,6 +21,10 @@ module Polygon
       def aggregates(symbol:, multiplier:, timespan:, from:, to:, options: {})
         get("/v2/aggs/ticker/#{symbol}/range/#{multiplier}/#{timespan}/#{from}/#{to}", { apiKey: api_key }.merge(options))
       end
+
+      def snapshot
+        get('/v2/snapshot/locale/us/markets/stocks/tickers', { apiKey: api_key })
+      end
     end
   end
 end
